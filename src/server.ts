@@ -1,7 +1,7 @@
 
 import express from "express";
 import usersRouter from "./routes/user.routes.js";
-import notesRoute from "./routes/note.routes.js";
+import tarefaRouter from "./routes/tarefa.routes.js";
 
 
 
@@ -10,8 +10,7 @@ app.use(express.json());
 
 const PORT = 3000;
 
-app.use("/user", usersRouter);
-app.use("/note", notesRoute);
+app.use(tarefaRouter);
 
 app.listen(PORT, (erro) => {
   erro ? console.log(erro) : console.log(`tudo certo`);
