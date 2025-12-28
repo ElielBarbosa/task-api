@@ -1,15 +1,17 @@
 import { Request, Response } from "express"
-import { TarefaRepository } from "../repositories/tarefa.respository.js";
+import { TaskRepository } from "../repositories/task.respository.js";
 
-export class TarefaController {
-  tarefaRepository: TarefaRepository;
+export class TaskController {
+  tarefaRepository: TaskRepository;
 
   constructor() {
-    this.tarefaRepository = new TarefaRepository();
+    this.tarefaRepository = new TaskRepository();
   }
 
   listarTarefas = async (req: Request, res: Response) => {
-    const tarefas = await this.tarefaRepository.listarTarefas();
+    const id_user = Number(req.params.id);
+
+    const tarefas = await this.tarefaRepository.listTask(id_user);
 
     res.json(tarefas).status(200);
   }

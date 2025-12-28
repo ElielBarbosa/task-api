@@ -1,13 +1,13 @@
-import { Tarefa } from "../entities/ITarefa.js";
+import { Task } from "../entities/ITask.js";
 import { prisma } from "../prisma.js";
 
-export class TarefaRepository {
+export class TaskRepository {
   constructor() { }
 
-  async listarTarefas(): Promise<Tarefa[] | null> {
+  async listTask(id_user: number): Promise<Task[] | null> {
     const rows = await prisma.$queryRaw`
-    select * from tb_tarefa;
-    `as Tarefa[]
+    select * from tb_tarefa where id_usuario = ${id_user};
+    `as Task[]
 
     return rows;
   }

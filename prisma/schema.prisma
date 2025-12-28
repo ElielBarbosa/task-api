@@ -8,7 +8,17 @@ datasource db {
 }
 
 model tb_tarefa {
-  id_tarefa        Int     @id @default(autoincrement())
-  titulo_tarefa    String  @db.VarChar(255)
-  descricao_tarefa String? @db.VarChar(255)
+  id_tarefa        Int        @id @default(autoincrement())
+  id_usuario       Int
+  titulo_tarefa    String     @db.VarChar(255)
+  descricao_tarefa String?
+  tb_usuario       tb_usuario @relation(fields: [id_usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model tb_usuario {
+  id_usuario    Int         @id @default(autoincrement())
+  nome_usuario  String      @db.VarChar(255)
+  login_usuario String      @unique @db.VarChar(255)
+  senha_usuario String      @db.VarChar(255)
+  tb_tarefa     tb_tarefa[]
 }
