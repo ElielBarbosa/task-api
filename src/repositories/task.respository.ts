@@ -12,15 +12,18 @@ export class TaskRepository {
     return rows;
   }
 
-  async criarTarefa(titulo: string, descricao: string): Promise<void> {
+  async criarTarefa(id_usuario: number, titulo: string, descricao: string): Promise<void> {
 
     await prisma.$executeRaw`
       insert into tb_tarefa(
-	      titulo_tarefa,
-	      descricao_tarefa) values(
-	      ${titulo},
-	      ${descricao}
-	    );
+		    id_usuario,
+        titulo_tarefa, 
+        descricao_tarefa
+		  ) values (
+		    ${id_usuario},
+        ${titulo},
+        ${descricao}
+        );
     `;
   }
 

@@ -17,9 +17,9 @@ export class TaskController {
   }
 
   criarNovaTarefa = async (req: Request, res: Response) => {
-    const { titulo, descricao } = req.body;
+    const { id_usuario, titulo, descricao } = req.body;
 
-    await this.tarefaRepository.criarTarefa(titulo, descricao);
+    await this.tarefaRepository.criarTarefa(id_usuario, titulo, descricao);
 
     res.json().status(201)
 
