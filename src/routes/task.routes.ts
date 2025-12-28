@@ -9,18 +9,18 @@ const taskController = new TaskController();
 taskRouter.get("/task/:id", taskController.listarTarefas);
 
 //Pegar notas de um usuario
-// taskRouter.get("/task/:id", async (req: Request, res: Response) => { });
+taskRouter.get("/task/verDetalhes/:id", taskController.verDetalhesTarefas);
 
 //Pegar notas por busca
-taskRouter.get("/task", (req: Request, res: Response) => { });
+//taskRouter.get("/task", (req: Request, res: Response) => { });
 
 //Criar nota
 taskRouter.post("/task", taskController.criarNovaTarefa);
 
 //Atualizar nota
-taskRouter.put("/task", (req: Request, res: Response) => { });
+//taskRouter.put("/task", (req: Request, res: Response) => { });
 
 //Deletar nota
-taskRouter.delete("/task", (req: Request, res: Response) => { });
+taskRouter.delete("/task/:id", taskController.deletarTarefa);
 
 export default taskRouter;

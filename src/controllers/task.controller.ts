@@ -16,6 +16,14 @@ export class TaskController {
     res.json(tarefas).status(200);
   }
 
+  verDetalhesTarefas = async (req: Request, res: Response) => {
+    const id_task = Number(req.params.id);
+
+    const tarefas = await this.tarefaRepository.verTarefaId(id_task);
+
+    res.json(tarefas).status(200);
+  }
+
   criarNovaTarefa = async (req: Request, res: Response) => {
     const { id_usuario, titulo, descricao } = req.body;
 
@@ -23,5 +31,13 @@ export class TaskController {
 
     res.json().status(201)
 
+  }
+
+  deletarTarefa = async (req: Request, res: Response) => {
+    const id_task = Number(req.params.id);
+
+    await this.tarefaRepository.deletarTarefa(id_task);
+
+    res.json({ mesage: 'Tarefa Deletada' }).status(201)
   }
 }
