@@ -4,24 +4,45 @@ import { prisma } from "../prisma.js";
 export class UserRepository {
   constructor() { }
 
-  async listarTarefas(): Promise<User[] | null> {
+  async loginUsuario(login: string, senha: string): Promise<User | null> {
     const rows = await prisma.$queryRaw`
-    select * from tb_tarefa;
+    select id_usuario, nome_usuario, login_usuario, senha_usuario from tb_tarefa where login_usuario = ${login} and senha_usuario = ${senha};
     `as User[]
 
-    return rows;
+    if (rows.length === 0) {
+      return null;
+    }
+
+    return rows[0];
   }
 
-  async criarTarefa(titulo: string, descricao: string): Promise<void> {
+  async registrarNovoUsuario(nome: string, login: string, senha: string): Promise<void> {
 
     await prisma.$executeRaw`
-      insert into tb_tarefa(
-        titulo_tarefa,
-        descricao_tarefa) values(
-        ${titulo},
-        ${descricao}
+      insert into tb_usuario(
+        nome_usuario,
+        login_usuario,
+        senha_usuario) values(
+        ${nome},
+        ${login},
+        ${senha}
       );
     `;
+  }
+
+  async authUser(login: string, senha: string): Promise<User | null> {
+
+    const rows = await prisma.$queryRaw`
+            SELECT id_usuario,login_usuario,senha_usuario FROM tb_usuario
+            WHERE login_usuario = ${login} and senha_usuario = ${senha}
+        ` as User[]
+
+    if (rows.length === 0) {
+      return null
+    }
+
+    return rows[0];
+
   }
 
 }

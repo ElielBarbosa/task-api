@@ -9,9 +9,10 @@ export class TaskController {
   }
 
   listarTarefas = async (req: Request, res: Response) => {
-    const id_user = Number(req.params.id);
+    //const id_user = Number(req.params.id);
+    const userId = (req as any).userId;
 
-    const tarefas = await this.tarefaRepository.listTask(id_user);
+    const tarefas = await this.tarefaRepository.listTask(userId);
 
     res.json(tarefas).status(200);
   }

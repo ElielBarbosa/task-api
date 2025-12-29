@@ -1,24 +1,18 @@
 import { Request, Response } from "express"
 import { UserRepository } from "../repositories/user.repository.js";
 export class UserController {
-  tarefaRepository: UserRepository;
+  userRepository: UserRepository;
 
   constructor() {
-    this.tarefaRepository = new UserRepository();
+    this.userRepository = new UserRepository();
   }
 
-  listarTarefas = async (req: Request, res: Response) => {
-    const tarefas = await this.tarefaRepository.listarTarefas();
+  cadastrarUsuario = async (req: Request, res: Response) => {
+    const { nome, login, senha } = req.body;
 
-    res.json(tarefas).status(200);
-  }
+    this.userRepository.registrarNovoUsuario(nome, login, senha);
 
-  criarNovaTarefa = async (req: Request, res: Response) => {
-    const { titulo, descricao } = req.body;
 
-    await this.tarefaRepository.criarTarefa(titulo, descricao);
-
-    res.json().status(201)
-
+    res.json({ mensage: `Usuario ${nome} registrado` }).status(200);
   }
 }
